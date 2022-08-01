@@ -17,6 +17,10 @@ public class SolutionOne implements Solution {
         }
     }
     
+    /**
+     * 这里考虑的是两个数组的中间两个数（1个），以此为基准减去左边或者右边一半
+     * 其实只考虑一边的写起来更简单，也就是只减去左边的，然后找第k大的数（k越来越小）
+     */
     private double findMedian(int[] nums1, int[] nums2) {
         int s1 = nums1.length;
         int s2 = nums2.length;
@@ -73,7 +77,7 @@ public class SolutionOne implements Solution {
                 return (nums1[l1] + nums1[r1]) / 2.0;
             }
     
-            int bias = (endIdx2-startIdx2+1) / 2;
+            int bias = (endIdx2-startIdx2+1) / 2; // 用短的那边的长度作为基准去减
             if (nums1[l1] <= nums2[l2]) {
                 endIdx2 -=bias;
                 startIdx1 += bias;
