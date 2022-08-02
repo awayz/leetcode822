@@ -3,6 +3,8 @@ package longestPalindrome5;
 public class SolutionOne implements Solution {
     
     /*
+    最长回文子串
+    
     暴力计算，挨个判断以s[i]为对称中心的（奇数个）和以s[i]为左对称点的(偶数个)
     2. 也可以列出a[0...i]的每个字符串然后用 dp 判断是不是回文, 也是 n^2
      */
