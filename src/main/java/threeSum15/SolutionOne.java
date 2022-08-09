@@ -16,6 +16,10 @@ public class SolutionOne implements Solution {
             idxMap.put(nums[i], i);
         }
         for (int i = 0; i < nums.length; i++) {
+            // 跳过连续相同的
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
             for (int j = i + 1; j < nums.length; j++) {
                 Integer third = idxMap.get(- nums[i] - nums[j]);
                 if (third != null && third > j) {
