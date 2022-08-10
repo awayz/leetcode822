@@ -20,7 +20,7 @@ class SolutionTest {
     @BeforeEach
     void init () throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
-        Class<?> solutionClass = Class.forName("threeSum15.SolutionOne");
+        Class<?> solutionClass = Class.forName("threeSum15.SolutionTwo");
         solution = (Solution) solutionClass.getDeclaredConstructor().newInstance();
     }
     
@@ -50,6 +50,14 @@ class SolutionTest {
     @Test
     void test4 () {
         List<List<Integer>> actual = solution.threeSum(new int[]{0, 0, 0});
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(List.of(0, 0, 0));
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    void test5 () {
+        List<List<Integer>> actual = solution.threeSum(new int[]{0, 0, 0, 0});
         List<List<Integer>> expected = new ArrayList<>();
         expected.add(List.of(0, 0, 0));
         assertEquals(expected, actual);

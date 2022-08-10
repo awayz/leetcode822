@@ -1,6 +1,8 @@
 package threeSum15;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author zhumingwei
@@ -10,43 +12,36 @@ public class SolutionTwo implements Solution {
     
     @Override
     public List<List<Integer>> threeSum (int[] nums) {
-        Set<List<Integer>> result = new HashSet<>();
+        List<List<Integer>> result = new ArrayList<>();
         if (nums.length < 3) {
             return new ArrayList<>();
         }
         Arrays.sort(nums);
-        Map<Integer, List<Integer>> idxMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            List<Integer> idxList = idxMap.getOrDefault(nums[i], new ArrayList<>());
-            idxList.add(i);
-            idxMap.put(nums[i], idxList);
-        }
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            List<Integer> idxList = idxMap.get(- nums[left] - nums[right]);
-            if (idxList != null && containsBetween(left, right, idxList)) {
-                result.add(List.of(nums[left], - nums[left] - nums[right], nums[right]));
-                right--;
-            } else {
-                left++;
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
             }
-            while (left > 1 && left < right && (nums[left - 1] == nums[left])) {
-                left++;
-            }
-            while (right < nums.length - 1 && right > left && nums[right] == nums[right + 1]) {
-                right--;
-            }
-        }
-        return new ArrayList<>(result);
-    }
-    
-    private boolean containsBetween (int left, int right, List<Integer> idxList) {
-        for (Integer integer : idxList) {
-            if (integer > left && integer < right) {
-                return true;
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int t = nums[left] + nums[right];
+                if (t > - nums[i]) {
+                    right--;
+                } else if (t < - nums[i]) {
+                    left++;
+                } else {
+                    result.add(List.of(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left + 1] == nums[left]) {
+                        left++;
+                    }
+                    while (left < right && nums[right - 1] == nums[right]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                }
             }
         }
-        return false;
+        return result;
     }
 }
